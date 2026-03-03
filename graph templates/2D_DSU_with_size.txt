@@ -1,0 +1,33 @@
+//Below template is from my own github https://github.com/GyanRao-Git
+
+class DSU{
+public:
+    vector<vector<int>>rank,size;
+    vector<vector<pair<int,int>>>par;
+    DSU(int N, int M){
+        rank=vector<vector<int>>(N+1,vector<int>(M+1,0));
+        size=vector<vector<int>>(N+1,vector<int>(M+1,1));
+        par=vector<vector<pair<int,int>>>(N+1,vector<pair<int,int>>(M+1));
+        for(int i=0;i<=N;i++) for(int j=0;j<=M;j++) par[i][j]={i,j};
+    }
+    pair<int,int> p(pair<int,int>node){
+        int I=node.first,J=node.second;
+        if(par[I][J]==make_pair(I,J)) return {I,J};
+        return par[I][J]=p(par[I][J]);
+    }
+    void u(pair<int,int>A, pair<int,int>B){
+        pair<int,int> parA=p(A), parB=p(B);
+        if(parA==parB) return;
+
+        int rnkA=rank[parA.first][parA.second],rnkB=rank[parB.first][parB.second];
+        if(rnkA>=rnkB){
+            par[parB.first][parB.second]=parA;
+            rank[parA.first][parA.second]++;
+            size[parA.first][parA.second] += size[parB.first][parB.second];
+        } else{
+            par[parA.first][parA.second]=parB;
+            rank[parB.first][parB.second]++;
+            size[parB.first][parB.second]+=size[parA.first][parA.second];
+        }
+    }
+};
