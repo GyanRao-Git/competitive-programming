@@ -1,0 +1,28 @@
+//Below template is from my own github https://github.com/GyanRao-Git
+
+class DSU{
+public:
+    vector<int>rank,par;
+    DSU(int N){
+        rank.resize(N+1,0);
+        par.resize(N+1);
+        for(int i=0;i<=N;i++) par[i]=i;
+    }
+    int p(int K){
+        if(par[K]==K) return K;
+        return par[K]=p(par[K]);
+    }
+    void u(int A, int B){
+        int parA=p(A), parB=p(B);
+        if(parA==parB) return;
+
+        int rnkA=rank[parA],rnkB=rank[parB];
+        if(rnkA>=rnkB){
+            par[parB]=parA;
+            rank[parA]++;
+        } else{
+            par[parA]=parB;
+            rank[parB]++;
+        }
+    }
+};
