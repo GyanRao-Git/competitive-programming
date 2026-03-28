@@ -1,0 +1,22 @@
+    //Below template is from my own github https://github.com/GyanRao-Git
+
+    int MOD = 1e9 + 7;
+    long long modPow(long long base, long long exp){
+        long long res = 1;
+        while (exp){
+            if (exp & 1)
+                res = res * base % MOD;
+            base = base * base % MOD;
+            exp >>= 1;
+        }
+        return res;
+    }
+    long long C(int n, int r){
+        if (r < 0 || r > n) return 0;
+        long long ans = 1;
+        for (int i = 1; i <= r; i++){
+            ans = ans * (n - i + 1) % MOD;
+            ans = ans * modPow(i, MOD - 2) % MOD;
+        }
+        return ans;
+    }
