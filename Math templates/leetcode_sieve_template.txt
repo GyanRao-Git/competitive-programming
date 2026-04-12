@@ -1,0 +1,19 @@
+bool flag = false;
+vector<int>primes;
+const int N= 200005;
+int p[N] = {0};
+void sieve(){
+    p[1]=1;
+    for(int i=2;i<N;i++){
+        if(!p[i]){
+            primes.push_back(i);
+            for(int j=i*2;j<N;j+=i) p[j]=1;
+        }
+    }
+}
+
+
+        if(!flag){
+            flag=true;
+            sieve();
+        }
