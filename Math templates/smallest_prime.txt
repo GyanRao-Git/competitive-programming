@@ -1,0 +1,45 @@
+// This snippet is frm my github: https://github.com/GyanRao-Git/competitive-programming/tree/main/Math%20templates
+
+const int MAX = 1e5 + 5;
+bool pre = false;
+vector<int> sp(MAX);
+
+void SPF(){
+    for(int i = 2; i < MAX; i++)
+        sp[i] = i;
+
+    for(int i = 2; i * i < MAX; i++){
+        if(sp[i] == i){
+            for(int j = i * i; j < MAX; j += i){
+                if(sp[j] == j)
+                    sp[j] = i;
+            }
+        }
+    }
+
+    pre = true;
+}
+
+/*
+    How to use:
+        SPF = smallest prime factor of N
+
+    Usage:
+        int ele = nums[i];
+
+        while(ele > 1){
+            int smallestPrime = sp[ele];
+
+            // Repeated dividing so we either exhaust
+            // or make it a new smallestPrime
+            while(ele % smallestPrime == 0)
+                ele /= smallestPrime;
+
+            factors[i].push_back(smallestPrime);
+        }
+
+    if(!pre) SPF();
+*/
+
+
+
