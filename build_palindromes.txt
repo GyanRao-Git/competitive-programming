@@ -1,0 +1,23 @@
+//Below template is from my own github https://github.com/GyanRao-Git
+// Calculates all palindromes of ODD and EVEN length by mirroring their first halves, to make ODD remove one and append reverse
+
+vector<long long> P[2];
+vector<long long> all;
+
+int init = []() {
+    long long M = 1e9;
+    for (int v = 1; v < 100000; ++v) {
+        string s = to_string(v);
+        string r = s;
+        reverse(r.begin(), r.end());
+        long long a1 = stoll(s.substr(0, s.size() - 1) + r);
+        long long a2 = stoll(s + r);
+        if (a1 < M) P[a1 & 1].push_back(a1);
+        if (a2 < M) P[a2 & 1].push_back(a2);
+    }
+    sort(P[0].begin(), P[0].end());
+    sort(P[1].begin(), P[1].end());
+    for(long long v:P[0]) all.push_back(v);
+    for(long long v:P[1]) all.push_back(v);
+    return 0;
+}();
